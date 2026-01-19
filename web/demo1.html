@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六合彩投注 Demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            max-width: 900px;
+        }
+
+        /* Number Grid Styles */
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .number-item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .ball {
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .ball.red { background-color: #e74c3c; }
+        .ball.blue { background-color: #3498db; }
+        .ball.green { background-color: #27ae60; }
+
+        .bet-input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            width: 60px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .bet-input.highlight {
+            border-color: #f39c12;
+            box-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
+        }
+
+        /* Filter Button Styles */
+        .filter-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .filter-btn {
+            padding: 8px 12px;
+            border: 1px solid #d0d0d0;
+            background-color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .filter-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #2980b9;
+        }
+        
+        /* Special styling for Gold/Wood/Water/Fire/Earth buttons to match image */
+        .filter-btn[data-filter="金"] { background-color: #f1c40f; color: white; border: none; }
+        .filter-btn[data-filter="木"] { background-color: #27ae60; color: white; border: none; }
+        .filter-btn[data-filter="水"] { background-color: #3498db; color: white; border: none; }
+        .filter-btn[data-filter="火"] { background-color: #e74c3c; color: white; border: none; }
+        .filter-btn[data-filter="土"] { background-color: #95a5a6; color: white; border: none; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="number-grid" id="numberGrid">
+        </div>
+
+    <div class="filter-section" id="filterSection">
+        </div>
+</div>
+
+<script>
+    // Data for all 49 numbers: color, zodiac (生肖), and five elements (五行)
+    // Note: This is sample data for demonstration. Real data changes yearly.
+    const numberData = {
+        1: { color: 'red', zodiac: '蛇', wuxing: '火' }, 2: { color: 'red', zodiac: '龙', wuxing: '土' }, 3: { color: 'blue', zodiac: '兔', wuxing: '木' }, 4: { color: 'blue', zodiac: '虎', wuxing: '木' }, 5: { color: 'green', zodiac: '牛', wuxing: '土' },
+        6: { color: 'green', zodiac: '鼠', wuxing: '水' }, 7: { color: 'red', zodiac: '猪', wuxing: '水' }, 8: { color: 'red', zodiac: '狗', wuxing: '土' }, 9: { color: 'blue', zodiac: '鸡', wuxing: '金' }, 10: { color: 'blue', zodiac: '猴', wuxing: '金' },
+        11: { color: 'green', zodiac: '羊', wuxing: '土' }, 12: { color: 'red', zodiac: '马', wuxing: '火' }, 13: { color: 'red', zodiac: '蛇', wuxing: '火' }, 14: { color: 'blue', zodiac: '龙', wuxing: '土' }, 15: { color: 'blue', zodiac: '兔', wuxing: '木' },
+        16: { color: 'green', zodiac: '虎', wuxing: '木' }, 17: { color: 'green', zodiac: '牛', wuxing: '土' }, 18: { color: 'red', zodiac: '鼠', wuxing: '水' }, 19: { color: 'red', zodiac: '猪', wuxing: '水' }, 20: { color: 'blue', zodiac: '狗', wuxing: '土' },
+        21: { color: 'green', zodiac: '鸡', wuxing: '金' }, 22: { color: 'green', zodiac: '猴', wuxing: '金' }, 23: { color: 'red', zodiac: '羊', wuxing: '土' }, 24: { color: 'red', zodiac: '马', wuxing: '火' }, 25: { color: 'blue', zodiac: '蛇', wuxing: '火' },
+        26: { color: 'blue', zodiac: '龙', wuxing: '土' }, 27: { color: 'green', zodiac: '兔', wuxing: '木' }, 28: { color: 'green', zodiac: '虎', wuxing: '木' }, 29: { color: 'red', zodiac: '牛', wuxing: '土' }, 30: { color: 'red', zodiac: '鼠', wuxing: '水' },
+        31: { color: 'blue', zodiac: '猪', wuxing: '水' }, 32: { color: 'green', zodiac: '狗', wuxing: '土' }, 33: { color: 'green', zodiac: '鸡', wuxing: '金' }, 34: { color: 'red', zodiac: '猴', wuxing: '金' }, 35: { color: 'red', zodiac: '羊', wuxing: '土' },
+        36: { color: 'blue', zodiac: '马', wuxing: '火' }, 37: { color: 'blue', zodiac: '蛇', wuxing: '火' }, 38: { color: 'green', zodiac: '龙', wuxing: '土' }, 39: { color: 'green', zodiac: '兔', wuxing: '木' }, 40: { color: 'red', zodiac: '虎', wuxing: '木' },
+        41: { color: 'blue', zodiac: '牛', wuxing: '土' }, 42: { color: 'blue', zodiac: '鼠', wuxing: '水' }, 43: { color: 'green', zodiac: '猪', wuxing: '水' }, 44: { color: 'green', zodiac: '狗', wuxing: '土' }, 45: { color: 'red', zodiac: '鸡', wuxing: '金' },
+        46: { color: 'red', zodiac: '猴', wuxing: '金' }, 47: { color: 'blue', zodiac: '羊', wuxing: '土' }, 48: { color: 'blue', zodiac: '马', wuxing: '火' }, 49: { color: 'green', zodiac: '蛇', wuxing: '火' }
+    };
+
+    // Filter button labels from the image
+    const filters = [
+        '金', '木', '水', '火', '土', '红波', '蓝波', '绿波', '单', '双', '大', '小',
+        '小单', '小双', '大单', '大双', '红单', '红双', '蓝单', '蓝双', '绿单', '绿双',
+        '红大', '红小', '蓝大', '蓝小', '绿大', '绿小', '合单', '合双', '合大', '合小',
+        '尾大', '尾小', '合尾大', '合尾小', '蛇', '龙', '兔', '虎', '牛', '鼠',
+        '猪', '狗', '鸡', '猴', '羊', '马', '家禽', '野兽', '前肖', '后肖', '天肖', '地肖',
+        '男肖', '女肖', '阳肖', '阴肖', '0头', '1头', '2头', '3头', '4头', '0头单', '0头双',
+        '1头单', '1头双', '2头单', '2头双', '3头单', '3头双', '4头单', '4头双',
+        '0尾', '1尾', '2尾', '3尾', '4尾', '5尾', '6尾', '7尾', '8尾', '9尾',
+        '1合', '2合', '3合', '4合', '5合', '6合', '7合', '8合', '9合', '10合', '11合', '12合', '13合',
+        '2合', '3合', '4合', '5合', '6合', '7合', '8合', '9合', '10合', '11合', '12合', '13合',
+        '内围码', '外围码'
+    ];
+
+    const gridContainer = document.getElementById('numberGrid');
+    const filterContainer = document.getElementById('filterSection');
+    let activeFilter = null;
+
+    // Helper function to pad numbers with a leading zero
+    function pad(num) {
+        return num.toString().padStart(2, '0');
+    }
+
+    // Helper function to calculate the sum of digits (合数)
+    function getHeShu(num) {
+        const str = num.toString();
+        return parseInt(str[0]) + (str.length > 1 ? parseInt(str[1]) : 0);
+    }
+
+    // Initialize the number grid
+    for (let i = 1; i <= 49; i++) {
+        const item = document.createElement('div');
+        item.className = 'number-item';
+        item.innerHTML = `
+            <div class="ball ${numberData[i].color}">${pad(i)}</div>
+            <input type="text" class="bet-input" id="input-${i}">
+        `;
+        gridContainer.appendChild(item);
+    }
+
+    // Initialize filter buttons
+    filters.forEach(filter => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = filter;
+        btn.dataset.filter = filter;
+        btn.onclick = () => toggleFilter(filter, btn);
+        filterContainer.appendChild(btn);
+    });
+
+    // Function to toggle a filter on and off
+    function toggleFilter(filter, btnElement) {
+        // Remove highlight from all inputs
+        document.querySelectorAll('.bet-input').forEach(input => input.classList.remove('highlight'));
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+
+        if (activeFilter === filter) {
+            activeFilter = null; // Deactivate if clicked again
+        } else {
+            activeFilter = filter;
+            btnElement.classList.add('active');
+            highlightNumbers(filter);
+        }
+    }
+
+    // Logic to determine which numbers match the selected filter
+    function highlightNumbers(filter) {
+        for (let i = 1; i <= 49; i++) {
+            const data = numberData[i];
+            const isSmall = i >= 1 && i <= 24;
+            const isBig = i >= 25 && i <= 48; // 49 is often treated separately
+            const isOdd = i % 2 !== 0;
+            const isEven = i % 2 === 0;
+            const heShu = getHeShu(i);
+            const tail = i % 10;
+
+            let match = false;
+            switch (filter) {
+                case '红波': match = data.color === 'red'; break;
+                case '蓝波': match = data.color === 'blue'; break;
+                case '绿波': match = data.color === 'green'; break;
+                case '单': match = isOdd; break;
+                case '双': match = isEven; break;
+                case '大': match = isBig; break;
+                case '小': match = isSmall; break;
+                case '红单': match = data.color === 'red' && isOdd; break;
+                case '红双': match = data.color === 'red' && isEven; break;
+                // ... add logic for all other combinations like '红大', '小单', etc. ...
+                case '合单': match = heShu % 2 !== 0; break;
+                case '合双': match = heShu % 2 === 0; break;
+                // ... add logic for 生肖, 五行, 头数, 尾数, etc. ...
+                
+                // Simple examples for demonstration. Complete logic would be extensive.
+                case data.zodiac: match = true; break;
+                case data.wuxing: match = true; break;
+            }
+
+            // For demonstration, let's just implement a few core ones to show it works
+            if (['金','木','水','火','土'].includes(filter)) {
+                if (data.wuxing === filter) match = true;
+            } else if (['鼠','牛','虎','兔','龙','蛇','马','羊','猴','鸡','狗','猪'].includes(filter)) {
+                 if (data.zodiac === filter) match = true;
+            }
+            
+            if (match) {
+                document.getElementById(`input-${i}`).classList.add('highlight');
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

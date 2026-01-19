@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>六合彩投注</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>六合彩投注</h1>
+        </div>
+        
+        <!-- 数字网格区域 -->
+        <div class="number-grid-section">
+            <div class="row-labels" id="rowLabels">
+                <!-- 行标签将通过JavaScript动态生成 -->
+            </div>
+            <div class="number-grid" id="numberGrid">
+                <!-- 数字和输入框将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <!-- 分类按钮区域 -->
+        <div class="button-section">
+            <!-- 第一组：五行 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="element" data-value="金">金</button>
+                <button class="category-btn" data-category="element" data-value="木">木</button>
+                <button class="category-btn" data-category="element" data-value="水">水</button>
+                <button class="category-btn" data-category="element" data-value="火">火</button>
+                <button class="category-btn" data-category="element" data-value="土">土</button>
+            </div>
+            
+            <!-- 第二组：波色 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="wave" data-value="红波">红波</button>
+                <button class="category-btn" data-category="wave" data-value="蓝波">蓝波</button>
+                <button class="category-btn" data-category="wave" data-value="绿波">绿波</button>
+            </div>
+            
+            <!-- 第三组：单双 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="parity" data-value="单">单</button>
+                <button class="category-btn" data-category="parity" data-value="双">双</button>
+            </div>
+            
+            <!-- 第四组：大小 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="size" data-value="大">大</button>
+                <button class="category-btn" data-category="size" data-value="小">小</button>
+            </div>
+            
+            <!-- 第五组：大小单双组合 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="combo" data-value="小单">小单</button>
+                <button class="category-btn" data-category="combo" data-value="小双">小双</button>
+                <button class="category-btn" data-category="combo" data-value="大单">大单</button>
+                <button class="category-btn" data-category="combo" data-value="大双">大双</button>
+            </div>
+            
+            <!-- 第六组：波色+单双组合 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="combo" data-value="红单">红单</button>
+                <button class="category-btn" data-category="combo" data-value="红双">红双</button>
+                <button class="category-btn" data-category="combo" data-value="蓝单">蓝单</button>
+                <button class="category-btn" data-category="combo" data-value="蓝双">蓝双</button>
+                <button class="category-btn" data-category="combo" data-value="绿单">绿单</button>
+                <button class="category-btn" data-category="combo" data-value="绿双">绿双</button>
+            </div>
+            
+            <!-- 第七组：波色+大小组合 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="combo" data-value="红大">红大</button>
+                <button class="category-btn" data-category="combo" data-value="红小">红小</button>
+                <button class="category-btn" data-category="combo" data-value="蓝大">蓝大</button>
+                <button class="category-btn" data-category="combo" data-value="蓝小">蓝小</button>
+                <button class="category-btn" data-category="combo" data-value="绿大">绿大</button>
+                <button class="category-btn" data-category="combo" data-value="绿小">绿小</button>
+            </div>
+            
+            <!-- 第八组：合数 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="combined" data-value="合单">合单</button>
+                <button class="category-btn" data-category="combined" data-value="合双">合双</button>
+                <button class="category-btn" data-category="combined" data-value="合大">合大</button>
+                <button class="category-btn" data-category="combined" data-value="合小">合小</button>
+            </div>
+            
+            <!-- 第九组：头数 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="head" data-value="0头">0头</button>
+                <button class="category-btn" data-category="head" data-value="1头">1头</button>
+                <button class="category-btn" data-category="head" data-value="2头">2头</button>
+                <button class="category-btn" data-category="head" data-value="3头">3头</button>
+                <button class="category-btn" data-category="head" data-value="4头">4头</button>
+            </div>
+            
+            <!-- 第十组：头数+单双组合 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="combo" data-value="0头单">0头单</button>
+                <button class="category-btn" data-category="combo" data-value="0头双">0头双</button>
+                <button class="category-btn" data-category="combo" data-value="1头单">1头单</button>
+                <button class="category-btn" data-category="combo" data-value="1头双">1头双</button>
+                <button class="category-btn" data-category="combo" data-value="2头单">2头单</button>
+                <button class="category-btn" data-category="combo" data-value="2头双">2头双</button>
+                <button class="category-btn" data-category="combo" data-value="3头单">3头单</button>
+                <button class="category-btn" data-category="combo" data-value="3头双">3头双</button>
+                <button class="category-btn" data-category="combo" data-value="4头单">4头单</button>
+                <button class="category-btn" data-category="combo" data-value="4头双">4头双</button>
+            </div>
+            
+            <!-- 第十一组：尾数大小 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="tail" data-value="尾大">尾大</button>
+                <button class="category-btn" data-category="tail" data-value="尾小">尾小</button>
+            </div>
+            
+            <!-- 第十二组：合尾数 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="tail" data-value="合尾大">合尾大</button>
+                <button class="category-btn" data-category="tail" data-value="合尾小">合尾小</button>
+            </div>
+            
+            <!-- 第十三组：尾数 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="tail" data-value="0尾">0尾</button>
+                <button class="category-btn" data-category="tail" data-value="1尾">1尾</button>
+                <button class="category-btn" data-category="tail" data-value="2尾">2尾</button>
+                <button class="category-btn" data-category="tail" data-value="3尾">3尾</button>
+                <button class="category-btn" data-category="tail" data-value="4尾">4尾</button>
+                <button class="category-btn" data-category="tail" data-value="5尾">5尾</button>
+                <button class="category-btn" data-category="tail" data-value="6尾">6尾</button>
+                <button class="category-btn" data-category="tail" data-value="7尾">7尾</button>
+                <button class="category-btn" data-category="tail" data-value="8尾">8尾</button>
+                <button class="category-btn" data-category="tail" data-value="9尾">9尾</button>
+            </div>
+            
+            <!-- 第十四组：合数 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="sum" data-value="1合">1合</button>
+                <button class="category-btn" data-category="sum" data-value="2合">2合</button>
+                <button class="category-btn" data-category="sum" data-value="3合">3合</button>
+                <button class="category-btn" data-category="sum" data-value="4合">4合</button>
+                <button class="category-btn" data-category="sum" data-value="5合">5合</button>
+                <button class="category-btn" data-category="sum" data-value="6合">6合</button>
+                <button class="category-btn" data-category="sum" data-value="7合">7合</button>
+                <button class="category-btn" data-category="sum" data-value="8合">8合</button>
+                <button class="category-btn" data-category="sum" data-value="9合">9合</button>
+                <button class="category-btn" data-category="sum" data-value="10合">10合</button>
+                <button class="category-btn" data-category="sum" data-value="11合">11合</button>
+                <button class="category-btn" data-category="sum" data-value="12合">12合</button>
+                <button class="category-btn" data-category="sum" data-value="13合">13合</button>
+            </div>
+            
+            <!-- 第十五组：生肖 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="zodiac" data-value="鼠">鼠</button>
+                <button class="category-btn" data-category="zodiac" data-value="牛">牛</button>
+                <button class="category-btn" data-category="zodiac" data-value="虎">虎</button>
+                <button class="category-btn" data-category="zodiac" data-value="兔">兔</button>
+                <button class="category-btn" data-category="zodiac" data-value="龙">龙</button>
+                <button class="category-btn" data-category="zodiac" data-value="蛇">蛇</button>
+                <button class="category-btn" data-category="zodiac" data-value="马">马</button>
+                <button class="category-btn" data-category="zodiac" data-value="羊">羊</button>
+                <button class="category-btn" data-category="zodiac" data-value="猴">猴</button>
+                <button class="category-btn" data-category="zodiac" data-value="鸡">鸡</button>
+                <button class="category-btn" data-category="zodiac" data-value="狗">狗</button>
+                <button class="category-btn" data-category="zodiac" data-value="猪">猪</button>
+            </div>
+            
+            <!-- 第十六组：生肖分类 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="zodiac-type" data-value="家禽">家禽</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="野兽">野兽</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="前肖">前肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="后肖">后肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="天肖">天肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="地肖">地肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="男肖">男肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="女肖">女肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="阳肖">阳肖</button>
+                <button class="category-btn" data-category="zodiac-type" data-value="阴肖">阴肖</button>
+            </div>
+            
+            <!-- 第十七组：内外围 -->
+            <div class="button-row">
+                <button class="category-btn" data-category="code" data-value="内围码">内围码</button>
+                <button class="category-btn" data-category="code" data-value="外围码">外围码</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>

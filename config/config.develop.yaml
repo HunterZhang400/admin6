@@ -1,0 +1,22 @@
+
+server:
+    jwt-secret: HbTjwi9Bne4sICHnK5cnWaE2IM6GLAgFxn7gPwyjJqY=
+
+mysql:
+    engine: mysql
+    user: root
+    password: PiuV5x3058Aj44
+    host: 52.74.106.47
+    port: 49590
+    name: zzl
+    max-idle: 10
+    max-open: 100
+
+
+
+# WoodeBox API配置
+woodebox-api:
+  base-url: "http://api.woodeboxs.com"
+  timeout: 30
+  max-retries: 3
+  token: "FBnD86hxTcoflrNEz1b9AS4KHJuGvpde"

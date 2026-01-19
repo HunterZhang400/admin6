@@ -1,0 +1,25 @@
+
+server:
+    read-timeout: 60
+    write-timeout: 60
+    jwt-secret: HbTjwi9Bne4sICHnK5cnWaE2IM6GLAgFxn7gPwyjJqY=
+    session-secret: s-4-m.3%v<9Fsp95
+    session-expire-hour: 16800
+
+mysql:
+    engine: mysql
+    user: root
+    password: R3JujMKewd+/4ajJy9mHUIvsv2O49DDyu/r18LGB0lFHZbVqk3CnrSTw
+    host: mysql
+    port: 49590
+    name: zzl
+    max-idle: 10
+    max-open: 100
+
+# WoodeBox API配置
+woodebox-api:
+  base-url: "http://api.woodeboxs.com"
+  timeout: 30
+  max-retries: 3
+  token: "FBnD86hxTcoflrNEz1b9AS4KHJuGvpde"
+
